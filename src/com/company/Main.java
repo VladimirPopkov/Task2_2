@@ -4,8 +4,10 @@ import java.util.Random;
 
 public class Main {
 
+    private final static int ARRAY_SIZE = 5;
+
     public static void main(String[] args) {
-        int arr[] = new int[5];
+        int arr[] = new int[ARRAY_SIZE];
         int even = 0;
         int notEven = 0;
         int arrEven[], arrNotEven[];
@@ -14,14 +16,31 @@ public class Main {
             arr[i] = random.nextInt(100) + 1;
             if(arr[i] % 2 == 0) even++;
             else notEven++;
-            if (i == 0) System.out.print("Весь массив: ");
-            System.out.printf("%d ", arr[i]);
         }
-        System.out.println();
+        printArr("Весь массив: ", arr);
         arrEven = new int[even];
         arrNotEven = new int[notEven];
-        even = 0;
-        notEven = 0;
+        divideIntoEvenAndOdd(arr, arrEven, arrNotEven);
+        printArr("Массив с четными числами: ", arrEven);
+        System.out.println("Среднее значение: " + calculateAverage(arrEven));
+        printArr("Массив с нечетными числами: ", arrNotEven);
+        System.out.println("Среднее значение: " + calculateAverage(arrNotEven));
+    }
+
+    static void printArr(String nameArr, int[] arr){
+        System.out.print(nameArr);
+        if (arr.length == 0) System.out.println("Массив пуст");
+        else {
+            for (int i = 0; i < arr.length; i++){
+                System.out.printf("%d ", arr[i]);
+            }
+            System.out.println();
+        }
+    }
+
+    static void divideIntoEvenAndOdd(int[] arr, int[] arrEven, int[] arrNotEven){
+        int even = 0;
+        int notEven = 0;
         for(int i = 0; i < arr.length; i++){
             if(arr[i] % 2 == 0){
                 arrEven[even] = arr[i];
@@ -31,23 +50,13 @@ public class Main {
                 notEven++;
             }
         }
-        even = 0;
-        notEven = 0;
-        for (int i = 0; i < arrEven.length; i++){
-            if (i == 0) System.out.print("Массив с четными числами: ");
-            System.out.printf("%d ", arrEven[i]);
-            even = even + arrEven[i];
+    }
+
+    static float calculateAverage(int[] arr){
+        int mean = 0;
+        for (int i = 0; i < arr.length; i++){
+            mean = mean + arr[i];
         }
-        System.out.println();
-        if (arrEven.length == 0) System.out.println("Массив пуст");
-        else System.out.println("Среднее значение: " + even/arrEven.length);
-        for (int i = 0; i < arrNotEven.length; i++){
-            if (i == 0) System.out.print("Массив с нечетными числами: ");
-            System.out.printf("%d ", arrNotEven[i]);
-            notEven = notEven + arrNotEven[i];
-        }
-        System.out.println();
-        if (arrNotEven.length == 0) System.out.println("Массив пуст");
-        else System.out.println("Среднее значение: " + notEven/arrNotEven.length);
+        return mean;
     }
 }
